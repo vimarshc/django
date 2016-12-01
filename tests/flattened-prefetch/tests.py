@@ -31,13 +31,13 @@ class Prefetch_Test_Case(TestCase):
         #     )
         # )
 
-        queryset = A.objects.all().prefetch_related(Prefetch('b'))
+        # queryset = A.objects.all().prefetch_related(Prefetch('b'))
         # queryset = A.objects.all().prefetch_related(
         #     Prefetch('b__c__d')
         # )
         # content = queryset[0].b.c.all()[0].d.pk
         # print (content)
-        if queryset:
+        if a and b and d:
             content = 1
         else:
             content = 9
