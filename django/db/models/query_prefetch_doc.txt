@@ -1,0 +1,42 @@
+
+
+Breakpoint (Change in first bad commit and last good commit):
+
+get_prefetcher():
+"""
+    For the attribute 'attr' on the given instance, finds
+    an object that has a get_prefetch_queryset().
+    Returns a 4 tuple containing:
+    (the object with get_prefetch_queryset (or None),
+     the descriptor object representing this relationship (or None),
+     a boolean that is False if the attribute was not found at all,
+     a boolean that is True if the attribute has already been fetched)
+"""
+
+prefetch_one_level():
+
+    """
+    Helper function for prefetch_related_objects
+
+    Runs prefetches on all instances using the prefetcher object,
+    assigning results to relevant caches in instance.
+
+    The prefetched objects are returned, along with any additional
+    prefetches that must be done due to prefetch_related lookups
+    found from default managers.
+    """
+
+
+Both functions are called only once in prefetch_related_objects():
+
+    """
+    Helper function for prefetch_related functionality
+
+    Populates prefetched objects caches for a list of results
+    from a QuerySet
+    """
+    This method is called in Queryset class. in _prefetch_related_objects() method
+    only called if the cache object is filled.
+
+    It is also fatted in _fetch_all(), if prefetch_done is false.
+

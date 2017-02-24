@@ -1308,12 +1308,17 @@ class RawQuerySet(object):
 
 class Prefetch(object):
     def __init__(self, lookup, queryset=None, to_attr=None):
+        #to_attr stores the prefetched results in a list .
         # `prefetch_through` is the path we traverse to perform the prefetch.
         self.prefetch_through = lookup
         # `prefetch_to` is the path to the attribute that stores the result.
         self.prefetch_to = lookup
         if to_attr:
             self.prefetch_to = LOOKUP_SEP.join(lookup.split(LOOKUP_SEP)[:-1] + [to_attr])
+            #lookup = 'a__b'
+            #to_attr = 'menu'
+            #result:
+            #LOOKUP_SEP.join(lookup.split(LOOKUP_SEP)[:-1] + [to_attr]) == 'a__menu'
 
         self.queryset = queryset
         self.to_attr = to_attr
@@ -1369,11 +1374,22 @@ def prefetch_related_objects(result_cache, related_lookups):
     Populates prefetched objects caches for a list of results
     from a QuerySet
     """
+    # queryset = C.objects.all()
+    # x = queryset.prefetch_related(
+    #     Prefetch('d')
+    # )
+    # content = x[0].d.pk
+    #result_cache = [<C: C object>]
+    #related_lookups[0].prefetch_through = u'd'
 
+    import pdb; pdb.set_trace()
     if len(result_cache) == 0:
         return  # nothing to do
 
     related_lookups = normalize_prefetch_lookups(related_lookups)
+    #returning prefetch class objects for all parameters.
+
+
 
     # We need to be able to dynamically add to the list of prefetch_related
     # lookups that we look up (see below).  So we need some book keeping to
@@ -1383,7 +1399,7 @@ def prefetch_related_objects(result_cache, related_lookups):
     auto_lookups = set()  # we add to this as we go through.
     followed_descriptors = set()  # recursion protection
 
-    all_lookups = deque(related_lookups)
+    all_lookups = deque(related_lookups) #kind of stack and queue. Fast.
     while all_lookups:
         lookup = all_lookups.popleft()
         if lookup.prefetch_to in done_queries:
