@@ -1382,7 +1382,7 @@ def prefetch_related_objects(result_cache, related_lookups):
     #result_cache = [<C: C object>]
     #related_lookups[0].prefetch_through = u'd'
 
-    import pdb; pdb.set_trace()
+    # import pdb; pdb.set_trace()
     if len(result_cache) == 0:
         return  # nothing to do
 
